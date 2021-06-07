@@ -18,6 +18,13 @@
       showResults($_POST['searchBar']);
   }
 
+  for ($i = 0; $i < 150; $i++){
+    if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addTrack_' . $i])){
+      echo "<div style='color: white'>hello</div>";
+      identifyTrack($i);
+    }
+}
+
 
   function showResults($mikaela) {
     if ($mikaela==""){
@@ -28,9 +35,11 @@
       $result = file_get_contents($url);
       $resultDecoded = (json_decode($result, true)); 
       $data = $resultDecoded['data'];
+      $_SESSION["latestQueryResult"]= $data;
       echo "<div class ='table'>";
       echo "<table>";
       echo "<tr class ='createTableRow'>";
+      echo "<th class ='createTableTitles'></th>";
       echo "<th class ='createTableTitles'>Artist</th>";
       echo "<th class ='createTableTitles'>Title</th>";
       echo "<th class ='createTableTitles'>Album</th>";
@@ -38,6 +47,7 @@
       echo "</tr>";
       for ($i = 0; $i < count($data)-1; $i++){
       echo "<tr class = 'createTableRow'>";
+      echo "<td><form id='formSearch' method='POST' enctype='text'><input class='addTrack' type='submit' value ='+' name='addTrack_$i'></input></form></td>";
       echo "<td>" . $data[$i]['artist']['name'] . "</td>";
       echo "<td>" . $data[$i]['title'] . "</td>";
       echo "<td>" . $data[$i]['album']['title'] . "</td>";
@@ -82,8 +92,32 @@
       }
 
   }
+
+  function identifyTrack($index) {
+   $string = json_encode ($_SESSION["latestQueryResult"]);
+   $json = $_SESSION["latestQueryResult"];
+   echo "<div style='color: white'>" . ($json[$index]['artist']['name']) . "</div>";
+   echo "<div style='color: white'>" . ($json[$index]['title']) . "</div>";
+   echo "<div style='color: white'>" . (gmdate("i:s", $json[$index]['duration'])) . "</div>";
+   addsong($json[$index]['title'], $json[$index]['artist']['name'], gmdate("i:s", $json[$index]['duration']));
+   
+  }
+
+  function addSong($title, $artist, $duration)
+{
+   global $db; 
+   $query="INSERT INTO Songs (title, artist, duration) VALUES ('$title', '$artist', '$duration')";
+   if ($db->query($query) === TRUE) {
+    echo "Added";
+ } else {
+     echo "Error updating: " . $db->error;
+  }
+}
+
   ?>
   </div>
+
+
 
 <?php include 'footer.php' ?>
 </html>

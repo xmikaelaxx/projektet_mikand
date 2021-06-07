@@ -310,6 +310,22 @@ a.active{
     margin: 1%;
 }
 
+/*============CREATING PLAYLIST============*/
+/*============CREATING PLAYLIST=============*/
+/*============CREATING PLAYLIST=============*/
+
+.addTrack {
+    font-size: 22px;
+    font-family: 'Poppins';
+    color: #ffffff;
+    font-weight: 100;
+    background-color: transparent;
+    border: 0px;
+    padding-left: 15px;
+    padding-right: 5px;
+
+}
+
 /*============TABLE============*/
 /*============TABLE============*/
 /*============TABLE============*/

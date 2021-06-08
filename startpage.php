@@ -23,7 +23,7 @@
         <button class="buttons" id="startButton" type="button">SEARCH</button>
         </div>-->
         <?php echo "<form id='formSearch' action='playlists.php' method='POST' enctype='text'>
-        <input class='searchBar' name='searchBar' type='text'></input>
+        <input class='searchBar' name='searchlist' type='text'></input>
         <input class='buttons' type='submit' value='SEARCH' name='startButton'></form>"; ?>
     </div> 
     <div class="backgroundDivBlue"> 

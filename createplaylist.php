@@ -167,8 +167,9 @@ for ($i = 0; $i < 150; $i++){
 
   $playlistID = explode('?', $_SERVER['REQUEST_URI']);
   $playlistID = end($playlistID);
-  $title = addslashes($title);
+  $title = addslashes($title);    // PÅVERKAR ATT DET GÅR ATT LÄGGA TILL OCH FÅ NYTT SONGID, ÄNDRA DETTA 
   $artist = addslashes($artist);
+  $songID = "";
    global $db;
    //$userID = (int)$userID;
    $getSongInfo = "SELECT * FROM Songs WHERE Songs.Title = '$title'";
@@ -186,28 +187,35 @@ for ($i = 0; $i < 150; $i++){
       $databaseSong = "";
    }
     if ($databaseSong == $title){
-      //echo "hejhejhej";
-      //echo $databaseSong;
+      echo "hejhejhej";
+      echo $databaseSong;
 
       $querySongID = "SELECT * FROM Songs WHERE Songs.Title = '$title' AND Songs.Artist = '$artist'";
       $songResult = mysqli_query($db, $querySongID);
       $rows = mysqli_fetch_assoc($songResult);
       $songID = $rows['SongID'];
-      //echo $title, $artist;
-      //echo $songID;
+      echo $title, $artist;
+      echo $songID;
       
     }else{ 
       $query="INSERT INTO Songs (title, artist, duration) VALUES ('$title', '$artist', '$duration')";
         if ($db->query($query) === TRUE) {
-          //echo "Added";
+          $songID = mysqli_insert_id($db);
+            //echo "Added";
+            //$query = "SELECT * FROM Songs WHERE Songs.Title = '$title' AND Songs.Artist = '$artist'";
+            //$songResult = mysqli_query($db, $query);
+            //$rows = mysqli_fetch_assoc($songResult);
+            //$songID = $rows['SongID'];
 
         } else {
            echo "Error updating: " . $db->error;
       }
     }
 
+
     $alreadyExistingSong = "INSERT INTO PlaylistSongs (SongID, PlaylistID) VALUES ('$songID', '$playlistID')";
     $updatePlaylistSong = mysqli_query($db, $alreadyExistingSong);
+    echo $songID;
 }
 
   ?>

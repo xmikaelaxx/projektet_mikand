@@ -1,5 +1,17 @@
 <?php include 'ext.php'?>
 <?php include 'header.php'?>
+<?php $_SESSION['historySearch']=""; ?>
+
+<div class="breadcrumb-box">
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item">
+                <a href="startpage.php" class="crumb">home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="login.php" class="crumb">login</a>
+            </li>
+        </ul>
+    </div>
 
 <body class ="backgroundBlue"> 
         <div class="page-title-box">
@@ -34,25 +46,27 @@
     if(isset($_POST['Username']) && isset($_POST['Password'])){
         $username = $_POST['Username'];
         $password = $_POST['Password'];
+      
+        //echo password_hash($password, PASSWORD_DEFAULT);
 
-        $query = "SELECT * FROM Users WHERE Username = ? AND Password = ?";
+        $query = "SELECT * FROM Users WHERE Username = ?";
 
         $stmt = $db->prepare($query);
-        $stmt->bind_param('ss', $username, $password);
+        $stmt->bind_param('s', $username);
         $stmt->bind_result($userID, $usrname, $pw, $email, $firstname, $lastname);
         $stmt->execute();
 
         if($stmt->fetch()){
             $_SESSION['Username'] = $usrname;
             $_SESSION['Password'] = $pw;
+            $_SESSION['userID'] = $userID;
         }
 
-        if(isset($_SESSION['Username'])){
-            echo $_SESSION['Username'];
-            echo $_SESSION['Password'];
-        }
+        $hashpassword = password_verify($password, $pw);
 
-        if($_SESSION['Password'] == 'mikaela'){
+        if($hashpassword){
+          $_SESSION['userID'] = $userID; 
+            //echo $userID;
             header('Location:http://192.168.64.2/projektet_mikand/profile.php');
     
         }

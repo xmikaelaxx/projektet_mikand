@@ -1,6 +1,16 @@
 <?php include 'ext.php'?>
 <?php include 'header.php'?>
-
+<?php $_SESSION['historySearch']=""; ?>
+<div class="breadcrumb-box">
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item">
+                <a href="startpage.php" class="crumb">home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="playlists.php" class="crumb">playlists</a>
+            </li>
+        </ul>
+</div>
 <body class="backgroundBlue">
         <div class="page-title-box">
             <h2 class="page-title-text">Playlists</h2>
@@ -24,13 +34,13 @@
            ini_set('display_errors', 'on');
 
            if(empty($_POST['searchlist'])){
-           $playlistquery = "SELECT * FROM Playlists JOIN Users ON Users.userID = Playlists.userID";
+           $playlistquery = "SELECT * FROM UserPlaylist JOIN Users ON Users.userID = UserPlaylist.userID JOIN Playlists ON Playlists.PlaylistID = UserPlaylist.PlaylistID";
            $result = mysqli_query($db, $playlistquery);
            }
 
            else {
             $arg = mysqli_real_escape_string($db, $_POST['searchlist']);
-            $playlistquery = "SELECT * FROM Playlists JOIN Users ON Users.userID = Playlists.userID WHERE Playlists.Title = '$arg' OR Users.Username = '$arg'";
+            $playlistquery = "SELECT * FROM UserPlaylist JOIN Users ON Users.userID = UserPlaylist.userID JOIN Playlists ON Playlists.PlaylistID = UserPlaylist.PlaylistID WHERE Playlists.Title = '$arg' OR Users.Username = '$arg'";
             $result = mysqli_query($db, $playlistquery);
 
            }
@@ -42,10 +52,10 @@
         ?>
 
             <div class="playlist">
-                <div class="playlist-img"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode( $rows['Cover'] ).'"/>'; ?></div>
+                <div class="playlist-img"><a href="browseplaylist.php"><?php echo '<img src="data:image/jpeg;base64,'.( $rows['Cover'] ).'"/>'; ?></div>
                 <div class="playlist-info">
                     <h4 class="playlist-name"><?php echo $rows['Title']; ?></h4>
-                    <p class="playlist-username"><?php echo $rows['Username']; ?></p>
+                    <p class="playlist-username"><?php echo $rows['Username']; ?></p></a>
                 </div>
             </div>
 

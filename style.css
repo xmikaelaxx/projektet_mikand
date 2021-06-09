@@ -94,6 +94,25 @@ a.active{
 }
 
 
+.breadcrumb-box{
+    position: absolute;
+    top: 60px;
+    left: 20px;
+}
+
+.breadcrumbs{
+    padding: 10px;
+}
+
+.breadcrumb-item{
+    display: inline-block;
+}
+
+.breadcrumb-item:not(:last-of-type)::after{
+    content: '>';
+    margin: 0 3px;
+}
+
 /*============STARTPAGE============*/
 /*============STARTPAGE============*/
 /*============STARTPAGE============*/
@@ -364,7 +383,8 @@ th {
 .tablePlaylist {
     margin-top: 5px;
     height: 285px;
-    overflow: scroll;
+    overflow: overlay;
+
 }
 
 .startplaylistName {
@@ -372,8 +392,13 @@ th {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 
 }
+
+/*============CREATING PLAYLIST============*/
+/*============CREATING PLAYLIST============*/
+/*============CREATING PLAYLIST============*/
 
 .searchBar2 {
     background-color: #000000;
@@ -383,15 +408,38 @@ th {
     border-width: 0 0 2px;
     font-size: 22px;
     font-family: 'Poppins';
+    color: #ffffff;
     border-radius: 0px;
     padding: 7px 3px 7px 3px;
     width: 600px;
+    margin-bottom: 60px;
+    text-align: center;
 }
 
 .searchBar2:focus {
     border-color: #ffffff;
 }
 
+.label-fileUpload{
+    font-size: 30px;
+    font-family: 'Poppins';
+    font-weight: 700;
+
+}
+
+.fileUpload{
+    margin: 20px 0 70px 0;
+    width: 200px;
+    background-color: #8ED1E7;
+    color: #ffffff;
+    font-family: 'Poppins';
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px 18px 8px 18px;
+    border-style: none;
+    border-radius: 7px;
+
+}
 
 .createPlaylistSearch {
         padding-top: 15px;
@@ -534,6 +582,7 @@ th {
     height: 200px;
     margin: 0 25px 0 25px;
     display: flex;
+    background-color: #8ED1E7;
     flex-direction: column;
     justify-content: center;
     align-items: center;

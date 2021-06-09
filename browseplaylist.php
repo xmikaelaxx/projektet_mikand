@@ -1,10 +1,25 @@
 <?php include 'ext.php'?>
 <?php include 'header.php'?>
+
+<?php $_SESSION['historySearch']=""; ?>
+
 <!DOCTYPE html>
 <body class ="backgroundBlue"> 
 
-<h2 class="specificPlaylistTitle">"Playlist name"</h2>
-<h3 class="specificPlaylistUsername">by username</h3>
+
+<div class="breadcrumb-box">
+        <ul class="breadcrumbs">
+            <li class="breadcrumb-item">
+                <a href="startpage.php" class="crumb">home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="browseplaylist.php" class="crumb">php variabeln hallå</a>
+            </li>
+        </ul>
+    </div>
+
+<h2 class="specificPlaylistTitle">php variabeln hallå</h2>
+<h3 class="specificPlaylistUsername">by php variabel user</h3>
 
     <div class="tablePlaylist">
    <table> 

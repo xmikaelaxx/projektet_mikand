@@ -1,6 +1,6 @@
 <?php include 'ext.php'?>
 <?php include 'header.php'?>
-
+<?php $_SESSION['historySearch']=""; ?>
 <body>
 
 <div class="allContentStart">
